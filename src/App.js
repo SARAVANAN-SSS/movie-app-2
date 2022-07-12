@@ -1,11 +1,11 @@
 import './App.css';
-
+import {useState} from 'react'
 
 
 
 function Movie ({name,poster,rating,summary}) {
 
-   const styles = { color: rating>=8 ? "red" : "teal"} 
+   const styles = { color: rating >= 8 ? "green" : "red"} 
 
   return(
     <div className="movie-container" >
@@ -15,6 +15,21 @@ function Movie ({name,poster,rating,summary}) {
       <p style={styles} className="movie-rating" >⭐{rating}</p>
       </div>
       <p className="movie-summary" >{summary}</p>
+      <Counter />
+    </div>
+  )
+}
+
+
+function Counter() {
+  const [like,setLike] = useState(0);
+  const [dislike,setDislike] = useState(0);
+
+  return(
+    <div className="counter-container">
+      <button onClick={()=>{setLike(like+1)}}>👍 {like}</button>
+      <button onClick={()=>{setDislike(dislike+1)}}>👎 {dislike}</button>
+      {/* <h1>{like}</h1> */}
     </div>
   )
 }
@@ -74,6 +89,7 @@ function App() {
     <div className="App">
 
     <MovieList movies={movies} />
+    
     
     
     </div>
