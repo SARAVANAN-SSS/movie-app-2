@@ -1,3 +1,8 @@
+.
+.App {
+  font-family:"Roboto";
+}
+
 .movie-poster {
   height: 540px;
   width: 320px;
@@ -32,4 +37,23 @@ body {
 .counter-container {
   display: flex;
   gap: 10px;
+}
+
+.add-movie-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: auto;
+}
+
+.delete-button {
+  display: flex;
+  gap: 10px;
+}
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 40px;
 }

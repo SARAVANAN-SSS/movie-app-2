@@ -1,51 +1,14 @@
+import { useState } from 'react';
 import './App.css';
-import {useState} from 'react'
-
-
-
-function Movie ({name,poster,rating,summary}) {
-
-   const styles = { color: rating >= 8 ? "green" : "red"} 
-
-  return(
-    <div className="movie-container" >
-      <img className="movie-poster" src={poster} alt={name} />
-      <div className="movie-specs" >
-      <h3 className="movie-name" >{name}</h3>
-      <p style={styles} className="movie-rating" >⭐{rating}</p>
-      </div>
-      <p className="movie-summary" >{summary}</p>
-      <Counter />
-    </div>
-  )
-}
-
-
-function Counter() {
-  const [like,setLike] = useState(0);
-  const [dislike,setDislike] = useState(0);
-
-  return(
-    <div className="counter-container">
-      <button onClick={()=>{setLike(like+1)}}>👍 {like}</button>
-      <button onClick={()=>{setDislike(dislike+1)}}>👎 {dislike}</button>
-      {/* <h1>{like}</h1> */}
-    </div>
-  )
-}
-
-function MovieList ({movies}) {
-  return (
-    <div className="movie-list">
-    {movies.map(({name,poster,rating,summary})=> <Movie name={name} poster={poster} rating={rating} summary={summary} />)}
-    </div>
-  );
-}
+import { MovieList } from './MovieList';
+import Button from '@mui/material/Button';
+import { Switch,Route,Link } from 'react-router-dom';
+import TextField from '@mui/material/TextField';
 
 
 function App() {
 
-  const movies = [
+  const INITIAL_MOVIES = [
     {
       name :"Kaithi(2019)",
       poster:"https://i.pinimg.com/originals/7d/9f/97/7d9f9738122bd0df2905600c2548d211.jpg",
@@ -83,19 +46,98 @@ function App() {
       summary:"When Shiva, the son of Bahubali, learns about his heritage, he begins to look for answers. His story is juxtaposed with past events that unfolded in the Mahishmati Kingdom."
     },
   ]
-
+  
+  const [name,setName] = useState();
+  const [poster,setPoster] = useState();
+  const [rating,setRating] = useState();
+  const [summary,setSummary] = useState();
+  const [movieList,setMovieList] = useState(INITIAL_MOVIES)
   
   return (
     <div className="App">
 
-    <MovieList movies={movies} />
+    <nav className='navigation'>
+      
+          <Link to="/">Home</Link>
+        
+          <Link to="/movies">Movies</Link>
+        
+          <Link to="/add-movie">Add Movie</Link>
+        
+          <Link to="/color-game">Color Game</Link>
+     
+    </nav>
+
+    <Switch>
+       
+      <Route path="/add-movie">
+      <div className="add-movie-btn">
+      
+      <TextField onChange={(event)=>{setName(event.target.value)}} label="Name" variant="outlined" />
+      <TextField onChange={(event)=>{setPoster(event.target.value)}} label="Poster" variant="outlined" />
+      <TextField onChange={(event)=>{setRating(event.target.value)}} label="Rating" variant="outlined" />
+      <TextField onChange={(event)=>{setSummary(event.target.value)}} label="Summary" variant="outlined" />
+
+
+      {/* <input className="add-movie-btn" onChange={(event)=>{setName(event.target.value)}} placeholder="Enter Movie Name" /><br /><br />
+      <input className="add-movie-btn" onChange={(event)=>{setPoster(event.target.value)}} placeholder="Enter Movie Poster Url" /><br /><br />
+      <input className="add-movie-btn" onChange={(event)=>{setRating(event.target.value)}} placeholder="Enter Movie Rating" /><br /><br />
+      <input className="add-movie-btn" onChange={(event)=>{setSummary(event.target.value)}} placeholder="Enter Movie Summary" /><br /><br /> */}
+      
+      <Button variant="outlined" onClick={()=>{
+      const newMovie={name:name,poster:poster,rating:rating,summary:summary}
+      setMovieList([...movieList,newMovie])}}>Add Movie</Button>
+      <br /><br />
+
+      </div>
+      </Route> 
+
+      <Route path="/movies">
+      
+      <MovieList movies={movieList} setMovieList={setMovieList} />
+
+      </Route>
     
-    
-    
-    </div>
+      <Route path="/color-game"><AddColor /></Route>
+      <Route path="/">Welcome to Movie App</Route>
+
+      </Switch>
+      </div>
   );
 }
 
+
+
+
+
+function AddColor () {
+
+  const[color,setColor] = useState("gold")
+  // const colorList = ["teal","green","crimson"]
+  const[colorList,setColorList] = useState(["teal","green","crimson"])
+
+  const styles2 = { backgroundColor: color }
+  return(
+    <div>
+      <input value={color} onChange={(event)=> setColor(event.target.value)} style={styles2} placeholder='Enter a Color' />
+      <button onClick={()=>setColorList([...colorList,color])}>Add Color</button>
+      {colorList.map((color)=><ColorBox color={color} />)}
+    </div>
+  )
+}
+
+
+function ColorBox ({color}) {
+  const styles = {
+    backgroundColor:color,
+    height:"20px",
+    width:"250px",
+    marginTop:"5px" 
+  } 
+  return(
+    <div style={styles}></div>
+  )
+}
 
 export default App;
 
