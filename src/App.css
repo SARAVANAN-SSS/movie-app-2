@@ -16,7 +16,11 @@
 .movie-specs {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+}
+
+.movie-details {
+  width: fit-content;
 }
 
 body {
@@ -56,4 +60,9 @@ body {
   flex-direction: column;
   gap: 10px;
   margin-bottom: 40px;
+}
+
+.not-found {
+/* margin: 50px; */
+text-align: center;
 }

@@ -24,7 +24,7 @@ export function MovieList({ movies,setMovieList }) {
        <DeleteIcon />
       </IconButton>
       </Button>}
-      
+      id={index}
       name={name} poster={poster} rating={rating} summary={summary} />)}
     </div>
   );

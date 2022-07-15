@@ -1,9 +1,9 @@
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 import { useState } from 'react';
+import { Link, Route, Switch, Redirect, useHistory, useParams } from 'react-router-dom';
 import './App.css';
 import { MovieList } from './MovieList';
-import Button from '@mui/material/Button';
-import { Switch,Route,Link } from 'react-router-dom';
-import TextField from '@mui/material/TextField';
 
 
 function App() {
@@ -13,101 +13,129 @@ function App() {
       name :"Kaithi(2019)",
       poster:"https://i.pinimg.com/originals/7d/9f/97/7d9f9738122bd0df2905600c2548d211.jpg",
       rating:8.5,
-      summary:"Dilli, an ex-convict, endeavours to meet his daughter for the first time after leaving prison. However, his attempts are interrupted due to a drug raid planned by Inspector Bejoy."
+      summary:"Dilli, an ex-convict, endeavours to meet his daughter for the first time after leaving prison. However, his attempts are interrupted due to a drug raid planned by Inspector Bejoy.",
+      trailer:""
     },
     {
       name :"Asuran(2019)",
       poster:"https://m.media-amazon.com/images/M/MV5BMDgwZWUyYzctOGU1NC00ZTFkLTgxM2EtNGU0ZWUwY2Y3YjhkXkEyXkFqcGdeQXVyMTA4NjE0NjEy._V1_.jpg",
       rating:9,
-      summary:"The teenage son of a farmer from an underprivileged caste kills a rich, upper caste landlord. Will the farmer, a loving father and a pacifist by heart, be able to save his hot-blooded son is the rest of the story."
+      summary:"The teenage son of a farmer from an underprivileged caste kills a rich, upper caste landlord. Will the farmer, a loving father and a pacifist by heart, be able to save his hot-blooded son is the rest of the story.",
+      trailer:""
     },
     {
       name :"KGF1(2018)",
       poster:"https://wallpaperaccess.com/full/2365094.jpg",
       rating:8,
-      summary:"In the 1970s, a gangster goes undercover as a slave to assassinate the owner of a notorious gold mine."
+      summary:"In the 1970s, a gangster goes undercover as a slave to assassinate the owner of a notorious gold mine.",
+      trailer:""
     },
     {
       name :"KGF2(2022)",
       poster:"https://cdn.bollywoodmdb.com/fit-in/movies/largethumb/2019/k-g-f-chapter-2/k-g-f-chapter-2-poster-4.jpg",
       rating:7.5,
-      summary:"In the blood-soaked Kolar Gold Fields, Rocky's name strikes fear into his foes. While his allies look up to him, the government sees him as a threat to law and order. Rocky must battle threats from all sides for unchallenged supremacy."
+      summary:"In the blood-soaked Kolar Gold Fields, Rocky's name strikes fear into his foes. While his allies look up to him, the government sees him as a threat to law and order. Rocky must battle threats from all sides for unchallenged supremacy.",
+      trailer:""
     },
     {
       name :"Baahubali1(2015)",
       poster:"https://pbs.twimg.com/media/CIuhPFwUkAAJPuO.jpg",
       rating:8,
-      summary:"In ancient India, an adventurous and daring man becomes involved in a decades-old feud between two warring peoples."
+      summary:"In ancient India, an adventurous and daring man becomes involved in a decades-old feud between two warring peoples.",
+      trailer:""
     },
     {
       name :"Baahubali2(2017)",
       poster:"https://st1.bollywoodlife.com/wp-content/uploads/2017/04/Baahubali-2-6.jpg",
       rating:8,
-      summary:"When Shiva, the son of Bahubali, learns about his heritage, he begins to look for answers. His story is juxtaposed with past events that unfolded in the Mahishmati Kingdom."
+      summary:"When Shiva, the son of Bahubali, learns about his heritage, he begins to look for answers. His story is juxtaposed with past events that unfolded in the Mahishmati Kingdom.",
+      trailer:""
     },
   ]
   
-  const [name,setName] = useState();
-  const [poster,setPoster] = useState();
-  const [rating,setRating] = useState();
-  const [summary,setSummary] = useState();
   const [movieList,setMovieList] = useState(INITIAL_MOVIES)
   
   return (
     <div className="App">
 
-    <nav className='navigation'>
+      <nav className='navigation'>
       
           <Link to="/">Home</Link>
         
           <Link to="/movies">Movies</Link>
+
+          <Link to="/films">Films</Link>
         
-          <Link to="/add-movie">Add Movie</Link>
+          <Link to="/movie/add">Add Movie</Link>
         
           <Link to="/color-game">Color Game</Link>
      
-    </nav>
+      </nav>
 
-    <Switch>
+      <Switch>
        
-      <Route path="/add-movie">
-      <div className="add-movie-btn">
-      
-      <TextField onChange={(event)=>{setName(event.target.value)}} label="Name" variant="outlined" />
-      <TextField onChange={(event)=>{setPoster(event.target.value)}} label="Poster" variant="outlined" />
-      <TextField onChange={(event)=>{setRating(event.target.value)}} label="Rating" variant="outlined" />
-      <TextField onChange={(event)=>{setSummary(event.target.value)}} label="Summary" variant="outlined" />
-
-
-      {/* <input className="add-movie-btn" onChange={(event)=>{setName(event.target.value)}} placeholder="Enter Movie Name" /><br /><br />
-      <input className="add-movie-btn" onChange={(event)=>{setPoster(event.target.value)}} placeholder="Enter Movie Poster Url" /><br /><br />
-      <input className="add-movie-btn" onChange={(event)=>{setRating(event.target.value)}} placeholder="Enter Movie Rating" /><br /><br />
-      <input className="add-movie-btn" onChange={(event)=>{setSummary(event.target.value)}} placeholder="Enter Movie Summary" /><br /><br /> */}
-      
-      <Button variant="outlined" onClick={()=>{
-      const newMovie={name:name,poster:poster,rating:rating,summary:summary}
-      setMovieList([...movieList,newMovie])}}>Add Movie</Button>
-      <br /><br />
-
-      </div>
-      </Route> 
-
-      <Route path="/movies">
-      
-      <MovieList movies={movieList} setMovieList={setMovieList} />
-
-      </Route>
-    
+      <Route path="/movie/add"> <AddMovie movieList={movieList} setMovieList={setMovieList} /> </Route> 
+      <Route path="/movie/:id"> <MovieDetails movieList={movieList} /> </Route> 
+      <Route path="/movies"> <MovieList movies={movieList} setMovieList={setMovieList} /> </Route>
+      <Route path="/films"><Redirect to="/movies" /></Route>
       <Route path="/color-game"><AddColor /></Route>
-      <Route path="/">Welcome to Movie App</Route>
-
+      <Route exact path="/">Welcome to Movie App</Route>
+      <Route path="**"> <NotFound /> </Route>
+    
       </Switch>
       </div>
   );
 }
 
+function MovieDetails({ movieList }) {
+
+  const {id} = useParams();
+  return (
+    <div className='movie-details'>
+       <div className='movie-specs'>
+       <h2>Movie Details of {movieList[id].name}</h2>
+       <p className="movie-rating">⭐{movieList[id].rating}</p>
+       </div>
+      <p className="movie-summary"><b>Summary : </b>{movieList[id].summary}</p>
+    </div>
+  )
+}
+
+function NotFound() {
+  return(
+    <div className='not-found'>
+      <h1>404 - Page Not Found</h1>
+    </div>
+  )
+}
+
+function AddMovie({ movieList,setMovieList }) {
+
+  const [name,setName] = useState();
+  const [poster,setPoster] = useState();
+  const [rating,setRating] = useState();
+  const [summary,setSummary] = useState();
+  const history = useHistory()
 
 
+  return(
+
+    <div className="add-movie-btn">
+      
+      <TextField onChange={(event)=>{setName(event.target.value)}} label="Name" variant="outlined" />
+      <TextField onChange={(event)=>{setPoster(event.target.value)}} label="Poster" variant="outlined" />
+      <TextField onChange={(event)=>{setRating(event.target.value)}} label="Rating" variant="outlined" />
+      <TextField onChange={(event)=>{setSummary(event.target.value)}} label="Summary" variant="outlined" />
+      
+      <Button variant="outlined" onClick={()=>{
+      history.push('/movies')
+      const newMovie={name:name,poster:poster,rating:rating,summary:summary}
+      setMovieList([...movieList,newMovie])}}>Add Movie</Button>
+
+      </div>
+
+  )
+}
 
 
 function AddColor () {
