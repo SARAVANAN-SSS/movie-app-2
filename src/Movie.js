@@ -32,7 +32,7 @@ export function Movie({ name, poster, rating, summary,deleteButton,id }) {
       <CardContent>
       <div className="movie-specs">
         <h3 className="movie-name">{name}
-        <Button  onClick={() => { history.push(`/movie/${id}`) }} aria-label="movie-details">
+        <Button  onClick={() => { history.push(`/movies/${id}`) }} aria-label="movie-details">
         <InfoIcon />
         </Button>
         <Button  onClick={() => { setShow(!show); }}>

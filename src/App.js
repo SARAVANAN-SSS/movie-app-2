@@ -4,9 +4,14 @@ import { useState } from 'react';
 import { Link, Route, Switch, Redirect, useHistory, useParams } from 'react-router-dom';
 import './App.css';
 import { MovieList } from './MovieList';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
 
 
 function App() {
+
+   
 
   const INITIAL_MOVIES = [
     {
@@ -14,42 +19,42 @@ function App() {
       poster:"https://i.pinimg.com/originals/7d/9f/97/7d9f9738122bd0df2905600c2548d211.jpg",
       rating:8.5,
       summary:"Dilli, an ex-convict, endeavours to meet his daughter for the first time after leaving prison. However, his attempts are interrupted due to a drug raid planned by Inspector Bejoy.",
-      trailer:""
+      trailer:"https://www.youtube.com/embed/hxPjWqyIhVA"
     },
     {
       name :"Asuran(2019)",
       poster:"https://m.media-amazon.com/images/M/MV5BMDgwZWUyYzctOGU1NC00ZTFkLTgxM2EtNGU0ZWUwY2Y3YjhkXkEyXkFqcGdeQXVyMTA4NjE0NjEy._V1_.jpg",
       rating:9,
       summary:"The teenage son of a farmer from an underprivileged caste kills a rich, upper caste landlord. Will the farmer, a loving father and a pacifist by heart, be able to save his hot-blooded son is the rest of the story.",
-      trailer:""
+      trailer:"https://www.youtube.com/embed/vOCM9wztBYQ"
     },
     {
       name :"KGF1(2018)",
       poster:"https://wallpaperaccess.com/full/2365094.jpg",
       rating:8,
       summary:"In the 1970s, a gangster goes undercover as a slave to assassinate the owner of a notorious gold mine.",
-      trailer:""
+      trailer:"https://www.youtube.com/embed/-KfsY-qwBS0"
     },
     {
       name :"KGF2(2022)",
       poster:"https://cdn.bollywoodmdb.com/fit-in/movies/largethumb/2019/k-g-f-chapter-2/k-g-f-chapter-2-poster-4.jpg",
       rating:7.5,
       summary:"In the blood-soaked Kolar Gold Fields, Rocky's name strikes fear into his foes. While his allies look up to him, the government sees him as a threat to law and order. Rocky must battle threats from all sides for unchallenged supremacy.",
-      trailer:""
+      trailer:"https://www.youtube.com/embed/JKa05nyUmuQ" 
     },
     {
       name :"Baahubali1(2015)",
       poster:"https://pbs.twimg.com/media/CIuhPFwUkAAJPuO.jpg",
       rating:8,
       summary:"In ancient India, an adventurous and daring man becomes involved in a decades-old feud between two warring peoples.",
-      trailer:""
+      trailer:"https://www.youtube.com/embed/sOEg_YZQsTI"
     },
     {
       name :"Baahubali2(2017)",
       poster:"https://st1.bollywoodlife.com/wp-content/uploads/2017/04/Baahubali-2-6.jpg",
       rating:8,
       summary:"When Shiva, the son of Bahubali, learns about his heritage, he begins to look for answers. His story is juxtaposed with past events that unfolded in the Mahishmati Kingdom.",
-      trailer:""
+      trailer:"https://www.youtube.com/embed/qD-6d8Wo3do"
     },
   ]
   
@@ -57,7 +62,9 @@ function App() {
   
   return (
     <div className="App">
-
+      {/* <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
+        <Toolbar> */}
       <nav className='navigation'>
       
           <Link to="/">Home</Link>
@@ -71,6 +78,9 @@ function App() {
           <Link to="/color-game">Color Game</Link>
      
       </nav>
+      {/* </Toolbar>
+      </AppBar>
+      </Box> */}
 
       <Switch>
        
@@ -89,14 +99,24 @@ function App() {
 
 function MovieDetails({ movieList }) {
 
+  const history = useHistory()
+
   const {id} = useParams();
   return (
     <div className='movie-details'>
-       <div className='movie-specs'>
+      
+      <div className='movie-trailer'>
+       
+       <iframe width="700" height="409" src={movieList[id].trailer} title="Kaithi 2020 Official Trailer Hindi Dubbed | Karthi, Narain, Arjun Das" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+
+       </iframe></div>
+
+       <div className='movie-sspecs'>
        <h2>Movie Details of {movieList[id].name}</h2>
-       <p className="movie-rating">⭐{movieList[id].rating}</p>
-       </div>
+       <p className="movie-rating"><b>Rating : </b>⭐{movieList[id].rating}</p>
       <p className="movie-summary"><b>Summary : </b>{movieList[id].summary}</p>
+      <button onClick={()=>{ history.goBack() }}>Back</button>
+      </div>
     </div>
   )
 }
