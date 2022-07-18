@@ -1,12 +1,15 @@
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import { useState } from 'react';
-import { Link, Route, Switch, Redirect, useHistory, useParams } from 'react-router-dom';
+import { Link, Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import './App.css';
 import { MovieList } from './MovieList';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
+import { MovieDetails } from './MovieDetails';
+import { NotFound } from './NotFound';
+import { AddMovie } from './AddMovie';
+import { AddColor } from './AddColor';
+import { TicTacToe } from './TicTacToe';
 
 
 function App() {
@@ -58,133 +61,41 @@ function App() {
     },
   ]
   
-  const [movieList,setMovieList] = useState(INITIAL_MOVIES)
+  const [movieList,setMovieList] = useState(INITIAL_MOVIES);
+  const history = useHistory()
   
   return (
     <div className="App">
-      {/* <Box sx={{ flexGrow: 1 }}>
+    
       <AppBar position="static">
-        <Toolbar> */}
-      <nav className='navigation'>
-      
-          <Link to="/">Home</Link>
-        
-          <Link to="/movies">Movies</Link>
+        <Toolbar>
+        <Button onClick={()=>{history.push("/")}} color="inherit">Home</Button>
+        <Button onClick={()=>{history.push("/movies")}} color="inherit">Movies</Button>
+        <Button onClick={()=>{history.push("/movies")}} color="inherit">Films</Button>
+        <Button onClick={()=>{history.push("/movie/add")}} color="inherit">Add Movie</Button>
+        <Button onClick={()=>{history.push("/color-game")}} color="inherit">Color Game</Button>
+        <Button onClick={()=>{history.push("/tic-tac-toe-game")}} color="inherit">Tic-Tac-Toe Game</Button>
 
-          <Link to="/films">Films</Link>
-        
-          <Link to="/movie/add">Add Movie</Link>
-        
-          <Link to="/color-game">Color Game</Link>
-     
-      </nav>
-      {/* </Toolbar>
-      </AppBar>
-      </Box> */}
+        </Toolbar>
+      </AppBar> 
 
+    <div className="navigation">
       <Switch>
        
       <Route path="/movie/add"> <AddMovie movieList={movieList} setMovieList={setMovieList} /> </Route> 
-      <Route path="/movie/:id"> <MovieDetails movieList={movieList} /> </Route> 
+      <Route path="/movies/:id"> <MovieDetails movieList={movieList} /> </Route> 
       <Route path="/movies"> <MovieList movies={movieList} setMovieList={setMovieList} /> </Route>
       <Route path="/films"><Redirect to="/movies" /></Route>
       <Route path="/color-game"><AddColor /></Route>
+      <Route path="/tic-tac-toe-game"><TicTacToe /></Route>
       <Route exact path="/">Welcome to Movie App</Route>
       <Route path="**"> <NotFound /> </Route>
     
       </Switch>
       </div>
+
+      </div>
   );
-}
-
-function MovieDetails({ movieList }) {
-
-  const history = useHistory()
-
-  const {id} = useParams();
-  return (
-    <div className='movie-details'>
-      
-      <div className='movie-trailer'>
-       
-       <iframe width="700" height="409" src={movieList[id].trailer} title="Kaithi 2020 Official Trailer Hindi Dubbed | Karthi, Narain, Arjun Das" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-
-       </iframe></div>
-
-       <div className='movie-sspecs'>
-       <h2>Movie Details of {movieList[id].name}</h2>
-       <p className="movie-rating"><b>Rating : </b>⭐{movieList[id].rating}</p>
-      <p className="movie-summary"><b>Summary : </b>{movieList[id].summary}</p>
-      <button onClick={()=>{ history.goBack() }}>Back</button>
-      </div>
-    </div>
-  )
-}
-
-function NotFound() {
-  return(
-    <div className='not-found'>
-      <h1>404 - Page Not Found</h1>
-    </div>
-  )
-}
-
-function AddMovie({ movieList,setMovieList }) {
-
-  const [name,setName] = useState();
-  const [poster,setPoster] = useState();
-  const [rating,setRating] = useState();
-  const [summary,setSummary] = useState();
-  const history = useHistory()
-
-
-  return(
-
-    <div className="add-movie-btn">
-      
-      <TextField onChange={(event)=>{setName(event.target.value)}} label="Name" variant="outlined" />
-      <TextField onChange={(event)=>{setPoster(event.target.value)}} label="Poster" variant="outlined" />
-      <TextField onChange={(event)=>{setRating(event.target.value)}} label="Rating" variant="outlined" />
-      <TextField onChange={(event)=>{setSummary(event.target.value)}} label="Summary" variant="outlined" />
-      
-      <Button variant="outlined" onClick={()=>{
-      history.push('/movies')
-      const newMovie={name:name,poster:poster,rating:rating,summary:summary}
-      setMovieList([...movieList,newMovie])}}>Add Movie</Button>
-
-      </div>
-
-  )
-}
-
-
-function AddColor () {
-
-  const[color,setColor] = useState("gold")
-  // const colorList = ["teal","green","crimson"]
-  const[colorList,setColorList] = useState(["teal","green","crimson"])
-
-  const styles2 = { backgroundColor: color }
-  return(
-    <div>
-      <input value={color} onChange={(event)=> setColor(event.target.value)} style={styles2} placeholder='Enter a Color' />
-      <button onClick={()=>setColorList([...colorList,color])}>Add Color</button>
-      {colorList.map((color)=><ColorBox color={color} />)}
-    </div>
-  )
-}
-
-
-function ColorBox ({color}) {
-  const styles = {
-    backgroundColor:color,
-    height:"20px",
-    width:"250px",
-    marginTop:"5px" 
-  } 
-  return(
-    <div style={styles}></div>
-  )
 }
 
 export default App;

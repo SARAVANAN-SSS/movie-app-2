@@ -61,13 +61,9 @@ body {
 }
 
 .navigation {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 50px;
+  margin-top: 30px;
 }
 
 .not-found {
-/* margin: 50px; */
 text-align: center;
 }
