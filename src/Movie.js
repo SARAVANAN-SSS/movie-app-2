@@ -12,7 +12,7 @@ import { useHistory } from 'react-router-dom'
 
 
 
-export function Movie({ name, poster, rating, summary,deleteButton,id }) {
+export function Movie({ name, poster, rating, summary,deleteButton,editButton,id }) {
 
   const [show, setShow] = useState(true);
   // const [showmovie, setShowmovie] = useState(false);
@@ -47,6 +47,7 @@ export function Movie({ name, poster, rating, summary,deleteButton,id }) {
       <div className='delete-button'>
       <Counter />
       {deleteButton}
+      {editButton}
       {/* <button onClick={() => { setShowmovie(!showmovie); }}>Delete</button><br /> */}
       </div>
       </CardActions>
