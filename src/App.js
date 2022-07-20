@@ -17,6 +17,7 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 import Paper from '@mui/material/Paper';
 import { Home } from './Home';
 import { EditMovie } from './EditMovie';
+import BasicForm from './BasicForm'
 
 
 
@@ -107,6 +108,7 @@ const theme = createTheme({
       <Route path="/color-game"><AddColor /></Route>
       <Route path="/tic-tac-toe-game">Tic-Tac-Toe Game</Route>
       <Route exact path="/"><Home /></Route>
+      <Route exact path="/basic-form"><BasicForm /></Route>
       <Route path="**"> <NotFound /> </Route>
     
       </Switch>
