@@ -10,20 +10,12 @@ import InfoIcon from '@mui/icons-material/Info';
 import { useHistory } from 'react-router-dom'
 
 
-
-
 export function Movie({ name, poster, rating, summary,deleteButton,editButton,id }) {
 
   const [show, setShow] = useState(true);
-  // const [showmovie, setShowmovie] = useState(false);
-
   const history = useHistory();
   const styles = { color: rating >= 8 ? "green" : "red" };
-
   const styles1 = { display: show ? "none" : "block" };
-
-  // const styles2 = { display: showmovie ? "none" : "block" };
-
 
   return (
     <div className="movie-container">
@@ -48,7 +40,6 @@ export function Movie({ name, poster, rating, summary,deleteButton,editButton,id
       <Counter />
       {deleteButton}
       {editButton}
-      {/* <button onClick={() => { setShowmovie(!showmovie); }}>Delete</button><br /> */}
       </div>
       </CardActions>
       </Card>
