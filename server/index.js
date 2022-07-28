@@ -16,7 +16,7 @@ const DB = "mongodb+srv://sssvanan456:sssvanan456@cluster1.7xgzsce.mongodb.net/?
 // 'mongodb+srv://<YOUR USERNAME>:<YOUR PASSWORD>@cluster0.zozv5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
 mongoose.connect(DB, {
-    useNewUrlParser: true,  
+    useNewUrlParser: true,        
      useUnifiedTopology: true,
 }).then(() =>{
     console.log('Database connected..')
